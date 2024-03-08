@@ -2,6 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./user');
+const multer = require('multer');
+const Event = require('./event');
+
+
 
 const app = express();
 const port = 3000;
@@ -56,8 +60,61 @@ app.post('/register', async (req, res) => {
     }
 });
 
+// GET endpoint to retrieve all registered users
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch (err) {
+        console.error('Error retrieving users:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-   
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); // Serve static files from the 'public' directory
+
+app.get('/event', (req, res) => {
+    res.sendFile(__dirname + '/views/event.html');
+});
+
+// POST endpoint to upload an event
+app.post('/upload', upload.single('image'), async (req, res) => {
+    const { caption } = req.body;
+    const imageUrl = req.file.path.replace('public\\', '');
+    const newEvent = new Event({ caption, imageUrl });
+    try {
+        await newEvent.save();
+        res.redirect('/event');
+        console.log('Event uploaded successfully:', newEvent);
+    } catch (err) {
+        console.error('Error uploading event:', err);
+        res.status(400).send('Event upload failed');
+    }
+});
+
+// GET endpoint to retrieve all events
+app.get('/api/events', async (req, res) => {
+    try {
+        const events = await Event.find({});
+        res.json(events);
+    } catch (err) {
+        console.error('Error retrieving events:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 app.listen(port, () => {

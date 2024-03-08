@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events</title>
+    <style>
+        .event {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .event img {
+            float: left;
+            margin-right: 10px;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .event p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+    <div id="events-container"></div>
+    <script>
+        fetch('/api/events')
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event');
+
+                    const image = document.createElement('img');
+                    image.src = event.imageUrl;
+                    eventDiv.appendChild(image);
+
+                    const caption = document.createElement('p');
+                    caption.textContent = event.caption;
+                    eventDiv.appendChild(caption);
+
+                    eventsContainer.appendChild(eventDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+    </script>
+</body>
+</html>
