@@ -29,6 +29,8 @@ app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/views/login.html');
 });
 
+
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password });
@@ -39,6 +41,10 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
+
+
+
 app.get('/register', (req, res) => {
     res.sendFile(__dirname + '/views/register.html');
 });
@@ -48,7 +54,7 @@ app.post('/register', async (req, res) => {
     const newUser = new User({ name, email, password, usn, branch, year });
     try {
         await newUser.save();
-        res.redirect('/home');
+        res.sendFile(__dirname + '/views/home.html');
         console.log('Registration successful:', newUser);
     } catch (err) {
         console.error('Error registering user:', err);
