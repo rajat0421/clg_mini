@@ -191,6 +191,10 @@ app.get('/get-attendance/:usn', async (req, res) => {
     }
 });
 
+app.get('/semtable', (req, res) => {
+    res.sendFile(__dirname + '/views/semTable.html');
+});
+
 app.get('/add-attendance', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'add-attendance.html'));
 });

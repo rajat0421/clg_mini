@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.semester-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.semester-list {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.semester-buttons-container {
+  display: none;
+  margin-top: 10px;
+}
+
+.semester-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.semester-buttons button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.semester-details {
+  flex: 2;
+}
+
+.show {
+  display: block !important;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.btn {
+  padding: 5px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}

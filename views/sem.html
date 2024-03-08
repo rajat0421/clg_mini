@@ -1,83 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semester Details</title>
-  <link rel="stylesheet" href="../stylesheets/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+        <title>Document</title>
+        <style>
+        .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    gap: 40px;
+    width: 50%;
+    margin-left: 25%;
+    height: 70vh;
+    padding-top: 6%;
+    padding-bottom: 3%;
+    border-radius: 8px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 55px;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+a:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+        
+        </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="button-row">
+            <a href="/semtable" class="button">Sem 1</a>
+            <a href="/semtable" class="button">Sem 2</a>
+        </div>
+        <div class="button-row">
+            <a href="/semtable" class="button">Sem 3</a>
+            <a href="/semtable" class="button">Sem 4</a>
+        </div>
+        <div class="button-row">
+            <a href="/semtable" class="button">Sem 5</a>
+            <a href="/semtable" class="button">Sem 6</a>
+        </div>
+        <div class="button-row">
+            <a href="/semtable" class="button">Sem 7</a>
+            <a href="/semtable" class="button">Sem 8</a>
+        </div>
+    </div>
+    
+    </body>
+    </html>
+    <title>Document</title>
 </head>
 <body>
-  <div class="semester-container">
-    <div class="semester-list">
-      <h2>Select Semester</h2>
-      <button id="toggleSemesters" class="btn btn-primary">Select Semester</button>
-      <div class="semester-buttons-container" id="semesterButtonsContainer">
-        <div class="semester-buttons">
-          <button class="btn btn-secondary">Semester 1</button>
-          <button class="btn btn-secondary">Semester 2</button>
-          <button class="btn btn-secondary">Semester 3</button>
-          <button class="btn btn-secondary">Semester 4</button>
-          <button class="btn btn-secondary">Semester 5</button>
-          <button class="btn btn-secondary">Semester 6</button>
-          <button class="btn btn-secondary">Semester 7</button>
-          <button class="btn btn-secondary">Semester 8</button>
-        </div>
-      </div>
-    </div>
-    <div class="semester-details" id="semesterDetails">
-      <!-- Semester details will be dynamically added here -->
-    </div>
-  </div>
-  <script>document.addEventListener("DOMContentLoaded", function() {
-    const toggleSemestersButton = document.getElementById("toggleSemesters");
-    const semesterButtonsContainer = document.getElementById("semesterButtonsContainer");
-    const semesterDetailsContainer = document.getElementById("semesterDetails");
-  
-    toggleSemestersButton.addEventListener("click", function() {
-      semesterButtonsContainer.classList.toggle("show");
-    });
-  
-    // Add event listeners to semester buttons
-    const semesterButtons = semesterButtonsContainer.querySelectorAll(".semester-buttons button");
-    semesterButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        const semesterNumber = button.textContent.split(" ")[1];
-        showSemesterDetails(semesterNumber);
-      });
-    });
-  
-    function showSemesterDetails(semesterNumber) {
-      const subjects = [
-        { name: 'Subject 1', credits: 3, result: 'Pass' },
-        { name: 'Subject 2', credits: 4, result: 'Pass' },
-        { name: 'Subject 3', credits: 3, result: 'Fail' }
-      ];
-  
-      const semesterDetailsHTML = `
-        <h2>Semester ${semesterNumber} Details</h2>
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th>Name</th>
-              <th>Credits</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${subjects.map(subject => `
-              <tr>
-                <td>${subject.name}</td>
-                <td>${subject.credits}</td>
-                <td>${subject.result}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
-  
-      semesterDetailsContainer.innerHTML = semesterDetailsHTML;
-    }
-  });
-  </script>
+    
 </body>
 </html>

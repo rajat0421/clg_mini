@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semester Table</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            
+        }
+        h1 {
+            
+           margin-left: 38vw;
+        }
+        
+        table {
+            
+            border-collapse: collapse;
+            width: 100%;
+            
+        }
+        
+        th {
+           
+            background-color: #e0dfdf;
+            color: #333333;
+            font-weight: bold;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        td {
+           
+            border-bottom: 1px solid #E0E0E0;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        tbody tr:nth-child(even) {
+           
+            background-color: #e0dfdf;
+            transition: background-color 0.3s ,transform 0.5s;
+            
+        }
+        tbody tr:nth-child(odd) {
+          
+           transition: background-color 0.3s ,transform 0.5s;
+       }
+        
+        tbody tr:hover {
+           
+            background-color: #E0E0E0;
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body>
+    <h1>Semester Result</h1>
+    
+    <div style="margin: 15vh;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                    <th>Credits</th>
+                    <th>Result </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Subject 1</td>
+                    <td>3</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Subject 2</td>
+                    <td>4</td>
+                    <td>Fail</td>
+                </tr>
+                <!-- Add more table rows and data here -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

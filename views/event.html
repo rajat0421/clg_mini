@@ -6,23 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upcoming Events</title>
     <style>
-        .event {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            overflow: hidden;
-        }
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #F5F5F5;
+}
 
-        .event img {
-            float: left;
-            margin-right: 10px;
-            max-width: 100px;
-            max-height: 100px;
-        }
+h1 {
+    text-align: center;
+}
 
-        .event p {
-            margin: 0;
-        }
+.event {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.event img {
+    float: left;
+    margin-right: 10px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+}
+
+.event p {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .event img {
+        float: none;
+        display: block;
+        margin: 0 auto 10px;
+    }
+}
+
     </style>
 </head>
 <body>
