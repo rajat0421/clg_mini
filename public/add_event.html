@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Event</title>
+</head>
+<body>
+    <h1>Upload Event</h1>
+    <form action="/upload-event" method="POST" enctype="multipart/form-data">
+        <label for="caption">Caption:</label><br>
+        <input type="text" id="caption" name="caption" required><br><br>
+        
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+        
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

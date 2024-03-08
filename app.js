@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 
+
 app.get('/user', (req, res) => {
     res.sendFile(__dirname + '/views/user.html');
 });
@@ -109,6 +110,10 @@ const upload = multer({ storage: storage });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // Serve static files from the 'public' directory
+
+app.get('/sem', (req, res) => {
+    res.sendFile(__dirname + '/views/sem.html');
+});
 
 app.get('/event', (req, res) => {
     res.sendFile(__dirname + '/views/event.html');
@@ -194,6 +199,10 @@ app.get('/add-attendance', (req, res) => {
 
 app.get('/attendance-details', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'attendance-details.html'));
+});
+
+app.get('/add_event', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'add_event.html'));
 });
 
 
