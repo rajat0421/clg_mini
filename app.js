@@ -7,6 +7,8 @@ const Event = require('./event');
 
 
 
+
+
 const app = express();
 const port = 3000;
 
@@ -31,7 +33,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password });
     if (user) {
-        res.redirect('/home');
+        res.sendFile(__dirname + '/views/home.html');
     } else {
         res.send('Login failed');
     }
