@@ -204,7 +204,7 @@ app.get('/attendance-details', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'attendance-details.html'));
 });
 
-app.get('/add_event', (req, res) => {
+app.get('/add-event', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'add_event.html'));
 });
 
