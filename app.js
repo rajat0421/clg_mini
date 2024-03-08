@@ -196,7 +196,6 @@ app.get('/add-attendance', (req, res) => {
 });
 
 
-
 app.get('/attendance-details', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'attendance-details.html'));
 });
