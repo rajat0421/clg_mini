@@ -4,13 +4,17 @@ const mongoose = require('mongoose');
 const User = require('./user');
 const multer = require('multer');
 const Event = require('./event');
-
-
-
+const path = require('path');
 
 
 const app = express();
-const port = 3000;
+const port = 3003;
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
 mongoose.connect('mongodb://localhost:27017/userdata');
 
@@ -18,18 +22,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // Serve static files from the 'public' directory
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
+    res.sendFile(__dirname + '/views/landing.html');
 });
 
 
-
+app.get('/user', (req, res) => {
+    res.sendFile(__dirname + '/views/user.html');
+});
+    
+app.get('/admin', (req, res) => {
+    res.sendFile(__dirname + '/views/admin.html');
+});
     
 
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/views/login.html');
 });
-
-
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -37,11 +45,20 @@ app.post('/login', async (req, res) => {
     if (user) {
         res.sendFile(__dirname + '/views/home.html');
     } else {
-        res.send('Login failed');
+        res.send('Incoorect Credential');
     }
 });
 
-
+// app.get('/username', async (req, res) => {
+//     // Assuming you're using session-based authentication and the user's email is stored in the session
+//     const { email } = req.session;
+//     const user = await User.findOne({ email });
+//     if (user) {
+//         res.json({ username: user.username });
+//     } else {
+//         res.status(404).json({ error: 'User not found' });
+//     }
+// });
 
 
 
@@ -98,7 +115,7 @@ app.get('/event', (req, res) => {
 });
 
 // POST endpoint to upload an event
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload-event', upload.single('image'), async (req, res) => {
     const { caption } = req.body;
     const imageUrl = req.file.path.replace('public\\', '');
     const newEvent = new Event({ caption, imageUrl });
@@ -121,6 +138,62 @@ app.get('/api/events', async (req, res) => {
         console.error('Error retrieving events:', err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+
+app.post('/attendance/:usn', async (req, res) => {
+    const { usn } = req.params;
+    const { subject, conductedClasses, attendedClasses } = req.body;
+
+    try {
+        const user = await User.findOne({ usn });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if the subject already exists in the attendance array
+        const existingRecordIndex = user.attendance.findIndex(record => record.subject === subject);
+        if (existingRecordIndex !== -1) {
+            // Update existing record
+            user.attendance[existingRecordIndex].conductedClasses = conductedClasses;
+            user.attendance[existingRecordIndex].attendedClasses = attendedClasses;
+        } else {
+            // Create new record
+            user.attendance.push({ subject, conductedClasses, attendedClasses });
+        }
+
+        await user.save();
+        res.status(200).json({ message: 'Attendance record saved successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/get-attendance/:usn', async (req, res) => {
+    const { usn } = req.params;
+
+    try {
+        const user = await User.findOne({ usn });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ attendance: user.attendance });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/add-attendance', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'add-attendance.html'));
+});
+
+
+
+app.get('/attendance-details', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'attendance-details.html'));
 });
 
 

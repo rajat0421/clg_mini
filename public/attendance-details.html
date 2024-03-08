@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Attendance</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    .container {
+        max-width: 800px;
+        margin: 100px auto;
+        text-align: center;
+    }
+    h1 {
+        color: #333;
+        margin-bottom: 30px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        width: 200px;
+        margin-right: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>View Attendance</h1>
+    <form id="attendanceForm">
+        <label for="usn">Enter USN:</label>
+        <input type="text" id="usn" name="usn" required>
+        <button type="submit">View</button>
+    </form>
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Conducted Classes</th>
+                <th>Attended Classes</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody id="attendanceTableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('attendanceForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const usn = document.getElementById('usn').value.trim();
+        if (!usn) {
+            alert('Please enter a valid USN');
+            return;
+        }
+
+        try {
+            const response = await fetch(`/get-attendance/${usn}`);
+            const data = await response.json();
+            if (response.ok) {
+                const attendanceTableBody = data.attendance.map(record => {
+                    const percentage = ((record.attendedClasses / record.conductedClasses) * 100).toFixed(2);
+                    return `
+                        <tr>
+                            <td>${record.subject}</td>
+                            <td>${record.conductedClasses}</td>
+                            <td>${record.attendedClasses}</td>
+                            <td>${percentage}%</td>
+                        </tr>
+                    `;
+                }).join('');
+                document.getElementById('attendanceTableBody').innerHTML = attendanceTableBody;
+            } else {
+                throw new Error('Error fetching attendance details');
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById('attendanceTableBody').innerHTML = '<tr><td colspan="4">Error fetching attendance details</td></tr>';
+        }
+    });
+</script>
+</body>
+</html>
